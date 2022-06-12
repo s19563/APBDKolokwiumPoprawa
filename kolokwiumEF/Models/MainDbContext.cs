@@ -80,13 +80,15 @@ namespace kolokwiumEF.Models
                     {
                         IdAlbum = 1,
                         AlbumName = "Costam",
-                        PublishDate = DateTime.Parse("2022-06-01")
+                        PublishDate = DateTime.Parse("2022-06-01"),
+                        IdMusicLabel = 1
                     },
                     new Album
                     {
                         IdAlbum = 2,
                         AlbumName = "Costamtam",
-                        PublishDate = DateTime.Parse("2022-06-01")
+                        PublishDate = DateTime.Parse("2022-06-01"),
+                        IdMusicLabel = 2
                     }
                 );
             });

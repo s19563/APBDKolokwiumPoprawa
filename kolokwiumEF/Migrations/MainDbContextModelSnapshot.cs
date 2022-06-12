@@ -48,14 +48,14 @@ namespace kolokwiumEF.Migrations
                         {
                             IdAlbum = 1,
                             AlbumName = "Costam",
-                            IdMusicLabel = 0,
+                            IdMusicLabel = 1,
                             PublishDate = new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             IdAlbum = 2,
                             AlbumName = "Costamtam",
-                            IdMusicLabel = 0,
+                            IdMusicLabel = 2,
                             PublishDate = new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });

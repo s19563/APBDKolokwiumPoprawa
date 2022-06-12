@@ -102,15 +102,6 @@ namespace kolokwiumEF.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Album",
-                columns: new[] { "IdAlbum", "AlbumName", "IdMusicLabel", "PublishDate" },
-                values: new object[,]
-                {
-                    { 1, "Costam", 0, new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, "Costamtam", 0, new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
-                });
-
-            migrationBuilder.InsertData(
                 table: "MusicLabel",
                 columns: new[] { "IdMusicLabel", "Name" },
                 values: new object[,]
@@ -138,14 +129,22 @@ namespace kolokwiumEF.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Musician_Track",
-                columns: new[] { "IdMusician", "IdTrack" },
-                values: new object[] { 1, 1 });
+                table: "Album",
+                columns: new[] { "IdAlbum", "AlbumName", "IdMusicLabel", "PublishDate" },
+                values: new object[,]
+                {
+                    { 1, "Costam", 1, new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "Costamtam", 2, new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
 
             migrationBuilder.InsertData(
                 table: "Musician_Track",
                 columns: new[] { "IdMusician", "IdTrack" },
-                values: new object[] { 2, 2 });
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Album_IdMusicLabel",
