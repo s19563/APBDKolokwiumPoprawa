@@ -1,5 +1,4 @@
 using kolokwiumEF.Models;
-using kolokwiumEF.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +27,7 @@ namespace kolokwiumEF
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MainDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddScoped<IOrdersDbService, OrdersDbService>();
+            //services.AddScoped<IOrdersDbService, OrdersDbService>();
             services.AddControllers();
         }
 

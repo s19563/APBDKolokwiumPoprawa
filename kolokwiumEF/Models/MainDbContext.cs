@@ -33,14 +33,14 @@ namespace kolokwiumEF.Models
                 e.HasData(
                     new Musician
                     {
-                        IdMusician = 0,
+                        IdMusician = 1,
                         FirstName = "Jan",
                         LastName = "Kowalski",
                         Nickname = "Janek"
                     },
                     new Musician
                     {
-                        IdMusician = 1,
+                        IdMusician = 2,
                         FirstName = "Adam",
                         LastName = "Nowak",
                         Nickname = "Nowacki"
@@ -56,12 +56,12 @@ namespace kolokwiumEF.Models
                 e.HasData(
                     new MusicLabel
                     {
-                        IdMusicLabel = 0,
+                        IdMusicLabel = 1,
                         Name = "Lalala"
                     },
                     new MusicLabel
                     {
-                        IdMusicLabel = 1,
+                        IdMusicLabel = 2,
                         Name = "Blabla"
                     }
                 );
@@ -78,13 +78,13 @@ namespace kolokwiumEF.Models
                 e.HasData(
                     new Album
                     {
-                        IdMusicLabel = 0,
+                        IdAlbum = 1,
                         AlbumName = "Costam",
                         PublishDate = DateTime.Parse("2022-06-01")
                     },
                     new Album
                     {
-                        IdMusicLabel = 1,
+                        IdAlbum = 2,
                         AlbumName = "Costamtam",
                         PublishDate = DateTime.Parse("2022-06-01")
                     }
@@ -102,13 +102,13 @@ namespace kolokwiumEF.Models
                 e.HasData(
                     new Track
                     {
-                        IdTrack = 0,
+                        IdTrack = 1,
                         TrackName = "Aaaaa",
                         Duration = 3.54F
                     },
                     new Track
                     {
-                        IdTrack = 1,
+                        IdTrack = 2,
                         TrackName = "Bbbbb",
                         Duration = 4.1F
                     }
@@ -125,13 +125,13 @@ namespace kolokwiumEF.Models
                 e.HasData(
                     new Musician_Track
                     {
-                        IdMusician = 0,
-                        IdTrack = 0
+                        IdMusician = 1,
+                        IdTrack = 1
                     },
                     new Musician_Track
                     {
-                        IdMusician = 1,
-                        IdTrack = 1
+                        IdMusician = 2,
+                        IdTrack = 2
                     }
                 );
             });
