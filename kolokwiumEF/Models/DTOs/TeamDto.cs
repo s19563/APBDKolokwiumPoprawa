@@ -12,6 +12,7 @@ namespace kolokwiumEF.Models.DTOs
         public string TeamName { get; set; }
         public string? TeamDescription { get; set; }
         public Organization Organization { get; set; }
+        public string OrganizationName { get; set; }
         public ICollection<Membership> Memberships { get; set; }
     }
 }

@@ -22,10 +22,13 @@ namespace kolokwiumEF.Services
         {
             return await _dbContext.Team.Select(t => new TeamDto()
             {
-                TeamID = t.TeamID,
-                OrganizationID = t.OrganizationID,
                 TeamName = t.TeamName,
-                TeamDescription = t.TeamDescription
+                TeamDescription = t.TeamDescription,
+                Organization = t.Organization,
+                Memberships = t.Memberships.Select(m => m)
+                    .Where(m => m.TeamID == t.TeamID)
+                    .OrderBy(m => m.MembershipDate)
+                    .ToList()
             })
             .Where(a => a.TeamID == idTeam)
             .SingleOrDefaultAsync();
