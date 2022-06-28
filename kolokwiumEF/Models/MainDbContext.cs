@@ -13,127 +13,142 @@ namespace kolokwiumEF.Models
         {
         }
 
-        public DbSet<Musician> Musician { get; set; }
-        public DbSet<Musician_Track> Musician_Track { get; set; }
-        public DbSet<Track> Track { get; set; }
-        public DbSet<Album> Album { get; set; }
-        public DbSet<MusicLabel> MusicLabel { get; set; }
+        public DbSet<Organization> Organization { get; set; }
+        public DbSet<Member> Member { get; set; }
+        public DbSet<Team> Team { get; set; }
+        public DbSet<Membership> Membership { get; set; }
+        public DbSet<File> File { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Musician>(e =>
+            modelBuilder.Entity<Organization>(e =>
             {
-                e.HasKey(e => e.IdMusician);
-                e.Property(e => e.FirstName).IsRequired().HasMaxLength(30);
-                e.Property(e => e.LastName).IsRequired().HasMaxLength(50);
-                e.Property(e => e.Nickname).HasMaxLength(20);
+                e.HasKey(e => e.OrganizationID);
+                e.Property(e => e.OrganizationName).IsRequired().HasMaxLength(100);
+                e.Property(e => e.OrganizationDomain).IsRequired().HasMaxLength(50);
 
                 e.HasData(
-                    new Musician
+                    new Organization
                     {
-                        IdMusician = 1,
-                        FirstName = "Jan",
-                        LastName = "Kowalski",
-                        Nickname = "Janek"
+                        OrganizationID = 1,
+                        OrganizationName = "Organizacja1",
+                        OrganizationDomain = "Domena1"
                     },
-                    new Musician
+                    new Organization
                     {
-                        IdMusician = 2,
-                        FirstName = "Adam",
-                        LastName = "Nowak",
-                        Nickname = "Nowacki"
+                        OrganizationID = 2,
+                        OrganizationName = "Organizacja2",
+                        OrganizationDomain = "Domena2"
                     }
                 );
             });
 
-            modelBuilder.Entity<MusicLabel>(e =>
+            modelBuilder.Entity<Member>(e =>
             {
-                e.HasKey(e => e.IdMusicLabel);
-                e.Property(e => e.Name).IsRequired().HasMaxLength(50);
+                e.HasKey(e => e.MemberID);
+                e.Property(e => e.MemberName).IsRequired().HasMaxLength(20);
+                e.Property(e => e.MemberSurname).IsRequired().HasMaxLength(50);
+                e.Property(e => e.MemberNickName).HasMaxLength(20);
+
+                e.HasOne(e => e.Organization).WithMany(e => e.Members).HasForeignKey(e => e.OrganizationID);
 
                 e.HasData(
-                    new MusicLabel
+                    new Member
                     {
-                        IdMusicLabel = 1,
-                        Name = "Lalala"
+                        MemberID = 1,
+                        OrganizationID = 1,
+                        MemberName = "Jan",
+                        MemberSurname = "Kowalski",
+                        MemberNickName = "Janek"
                     },
-                    new MusicLabel
+                    new Member
                     {
-                        IdMusicLabel = 2,
-                        Name = "Blabla"
+                        MemberID = 2,
+                        OrganizationID = 2,
+                        MemberName = "Piotr",
+                        MemberSurname = "Nowak",
+                        MemberNickName = "Piotrek"
                     }
                 );
             });
 
-            modelBuilder.Entity<Album>(e =>
+            modelBuilder.Entity<Team>(e =>
             {
-                e.HasKey(e => e.IdAlbum);
-                e.Property(e => e.AlbumName).IsRequired().HasMaxLength(30);
-                e.Property(e => e.PublishDate).IsRequired();
+                e.HasKey(e => e.TeamID);
+                e.Property(e => e.TeamName).IsRequired().HasMaxLength(50);
+                e.Property(e => e.TeamDescription).HasMaxLength(500);
 
-                e.HasOne(e => e.MusicLabel).WithMany(e => e.Albums).HasForeignKey(e => e.IdMusicLabel);
+                e.HasOne(e => e.Organization).WithMany(e => e.Teams).HasForeignKey(e => e.OrganizationID);
 
                 e.HasData(
-                    new Album
+                    new Team
                     {
-                        IdAlbum = 1,
-                        AlbumName = "Costam",
-                        PublishDate = DateTime.Parse("2022-06-01"),
-                        IdMusicLabel = 1
+                        TeamID = 1,
+                        OrganizationID = 1,
+                        TeamName = "Team1",
+                        TeamDescription = "opis1"
                     },
-                    new Album
+                    new Team
                     {
-                        IdAlbum = 2,
-                        AlbumName = "Costamtam",
-                        PublishDate = DateTime.Parse("2022-06-01"),
-                        IdMusicLabel = 2
+                        TeamID = 2,
+                        OrganizationID = 2,
+                        TeamName = "Team2",
+                        TeamDescription = "opis2"
                     }
                 );
             });
 
-            modelBuilder.Entity<Track>(e =>
+            modelBuilder.Entity<Membership>(e =>
             {
-                e.HasKey(e => e.IdTrack);
-                e.Property(e => e.TrackName).IsRequired().HasMaxLength(20);
-                e.Property(e => e.Duration).IsRequired();
+                e.HasKey(e => new { e.MemberID, e.TeamID });
+                e.Property(e => e.MembershipDate).IsRequired();
 
-                e.HasOne(e => e.Album).WithMany(e => e.Tracks).HasForeignKey(e => e.IdMusicAlbum);
+                e.HasOne(e => e.Member).WithMany(e => e.Memberships).HasForeignKey(e => e.MemberID);
+                e.HasOne(e => e.Team).WithMany(e => e.Memberships).HasForeignKey(e => e.TeamID).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
                 e.HasData(
-                    new Track
+                    new Membership
                     {
-                        IdTrack = 1,
-                        TrackName = "Aaaaa",
-                        Duration = 3.54F
+                        MemberID = 1,
+                        TeamID = 1,
+                        MembershipDate = DateTime.Parse("2022-01-01")
                     },
-                    new Track
+                    new Membership
                     {
-                        IdTrack = 2,
-                        TrackName = "Bbbbb",
-                        Duration = 4.1F
+                        MemberID = 2,
+                        TeamID = 2,
+                        MembershipDate = DateTime.Parse("2022-02-02")
                     }
                 );
             });
 
-            modelBuilder.Entity<Musician_Track>(e =>
+            modelBuilder.Entity<File>(e =>
             {
-                e.HasKey(e => new { e.IdTrack, e.IdMusician });
+                e.HasKey(e => new { e.FileID, e.TeamID });
+                e.Property(e => e.FileName).IsRequired().HasMaxLength(100);
+                e.Property(e => e.FileExtension).IsRequired().HasMaxLength(4);
+                e.Property(e => e.FileSize).IsRequired();
 
-                e.HasOne(e => e.Musician).WithMany(e => e.Musician_Tracks).HasForeignKey(e => e.IdMusician);
-                e.HasOne(e => e.Track).WithMany(e => e.Musician_Tracks).HasForeignKey(e => e.IdTrack);
+                e.HasOne(e => e.Team).WithMany(e => e.Files).HasForeignKey(e => e.TeamID);
 
                 e.HasData(
-                    new Musician_Track
+                    new File
                     {
-                        IdMusician = 1,
-                        IdTrack = 1
+                        FileID = 1,
+                        TeamID = 1,
+                        FileName = "plik1",
+                        FileExtension = "jpg",
+                        FileSize = 1024
                     },
-                    new Musician_Track
+                    new File
                     {
-                        IdMusician = 2,
-                        IdTrack = 2
+                        FileID = 2,
+                        TeamID = 2,
+                        FileName = "plik2",
+                        FileExtension = "png",
+                        FileSize = 2048
                     }
                 );
             });

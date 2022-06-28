@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace kolokwiumEF.Services
+namespace kolokwiumEF.Models.DTOs
 {
-    public class AlbumsDbService
+    public class MembershipDto
     {
     }
 }
